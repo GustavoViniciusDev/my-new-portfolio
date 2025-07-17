@@ -57,7 +57,7 @@ O objetivo é transmitir **profissionalismo e confiança**, exibindo meus princi
 git clone https://github.com/seu-usuario/seu-portifolio.git
 
 # Acesse a pasta
-cd seu-portifolio
+cd my-new-portfolio
 
 # Instale as dependências
 npm install
