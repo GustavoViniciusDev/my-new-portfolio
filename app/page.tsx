@@ -15,7 +15,6 @@ import {
   ExternalLink,
   Code,
   Palette,
-  Smartphone,
   User,
   Globe,
 } from "lucide-react"
@@ -52,8 +51,7 @@ export default function Portfolio() {
       setName("")
       setEmail("")
       setMessage("")
-    } catch (err: any) {
-      console.error(err)
+    } catch (err) {
       toast?.error?.("Não foi possível enviar. Tente novamente.")
     } finally {
       setLoading(false)
