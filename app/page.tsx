@@ -93,10 +93,10 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "Dashboard Analytics",
-      description: "Dashboard interativo para análise de dados com React",
-      image: "/placeholder.svg?height=300&width=400",
-      link: "https://exemplo.com",
+      title: "Auto Prime Veículos",
+      description: "Site moderno e responsivo para uma concessionária de veículos",
+      image: "/img/autoprimeveiculos.png?height=300&width=400",
+      link: "https://auto-prime-veiculos-9wvl.vercel.app/",
     },
     {
       id: 3,
