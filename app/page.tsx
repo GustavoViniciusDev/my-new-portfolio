@@ -96,20 +96,20 @@ export default function Portfolio() {
       image: "/img/autoprimeveiculos.png?height=300&width=400",
       link: "https://auto-prime-veiculos-9wvl.vercel.app/",
     },
-    {
-      id: 3,
-      title: "App Mobile",
-      description: "Aplicativo mobile desenvolvido com React Native",
-      image: "/placeholder.svg?height=300&width=400",
-      link: "https://exemplo.com",
-    },
-    {
-      id: 4,
-      title: "Site Institucional",
-      description: "Website corporativo responsivo com CMS personalizado",
-      image: "/placeholder.svg?height=300&width=400",
-      link: "https://exemplo.com",
-    },
+    // {
+    //   id: 3,
+    //   title: "App Mobile",
+    //   description: "Aplicativo mobile desenvolvido com React Native",
+    //   image: "/placeholder.svg?height=300&width=400",
+    //   link: "https://exemplo.com",
+    // },
+    // {
+    //   id: 4,
+    //   title: "Site Institucional",
+    //   description: "Website corporativo responsivo com CMS personalizado",
+    //   image: "/placeholder.svg?height=300&width=400",
+    //   link: "https://exemplo.com",
+    // },
   ]
 
   const services = [
