@@ -91,25 +91,25 @@ export default function Portfolio() {
     },
     {
       id: 2,
-      title: "Auto Prime Veículos",
-      description: "Site moderno e responsivo para uma concessionária de veículos",
-      image: "/img/autoprimeveiculos.png?height=300&width=400",
-      link: "https://auto-prime-veiculos-9wvl.vercel.app/",
+      title: "Solis Educacional",
+      description: "Sistema ERP voltado para escolas públicas e privadas",
+      image: "/img/solis.png?height=300&width=400",
+      link: "https://painel.soliseducacional.com.br/",
     },
-    // {
-    //   id: 3,
-    //   title: "App Mobile",
-    //   description: "Aplicativo mobile desenvolvido com React Native",
-    //   image: "/placeholder.svg?height=300&width=400",
-    //   link: "https://exemplo.com",
-    // },
-    // {
-    //   id: 4,
-    //   title: "Site Institucional",
-    //   description: "Website corporativo responsivo com CMS personalizado",
-    //   image: "/placeholder.svg?height=300&width=400",
-    //   link: "https://exemplo.com",
-    // },
+    {
+      id: 3,
+      title: "DMarks - Locação de Móveis",
+      description: "Aplicativo mobile desenvolvido com React Native",
+      image: "/img/dmarks.png?height=300&width=400",
+      link: "https://dmarkslocacoes.com.br/",
+    },
+    {
+      id: 4,
+      title: "VivaCard - Livramento",
+      description: "Website corporativo responsivo com CMS personalizado",
+      image: "/img/vivacard.png?height=300&width=400",
+      link: "https://vidacardlivramento.com.br/",
+    },
   ]
 
   const services = [
