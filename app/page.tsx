@@ -99,7 +99,7 @@ export default function Portfolio() {
     {
       id: 3,
       title: "DMarks - Locação de Móveis",
-      description: "Aplicativo mobile desenvolvido com React Native",
+      description: "Site para locação de móveis",
       image: "/img/dmarks.png?height=300&width=400",
       link: "https://dmarkslocacoes.com.br/",
     },
