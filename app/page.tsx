@@ -1,31 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import {
-  Moon,
-  Sun,
-  Menu,
-  X,
-  Github,
-  Linkedin,
-  Instagram,
-  Mail,
-  Phone,
-  MapPin,
-  ExternalLink,
-  Code,
-  Palette,
-  User,
-  Globe,
-} from "lucide-react"
+import { Moon, Sun, Menu, X, Github, Linkedin, Instagram, Mail, Phone, MapPin, ExternalLink, Code, Palette, User, Globe, Briefcase, Calendar, Building, GraduationCap } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import Image from "next/image"
-import { toast } from "react-toastify" 
-
-
+import { toast } from "react-toastify"
 
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(true)
@@ -46,12 +28,11 @@ export default function Portfolio() {
       })
       const json = await res.json()
       if (!res.ok) throw new Error(json?.error || "Erro ao enviar")
-
       toast?.success?.("Mensagem enviada com sucesso!")
       setName("")
       setEmail("")
       setMessage("")
-    } catch (err) {
+    } catch {
       toast?.error?.("Não foi possível enviar. Tente novamente.")
     } finally {
       setLoading(false)
@@ -79,6 +60,72 @@ export default function Portfolio() {
     { name: "Node.js", icon: "/img/nodejs.png" },
     { name: "MySQL", icon: "/img/MySql.png" },
     { name: "Git", icon: "/img/Git.png" },
+  ]
+
+  const experiences = [
+    {
+      id: 1,
+      company: "Solis Educacional",
+      position: "Desenvolvedor Fullstack",
+      period: "Nov 2024 – Jul 2025",
+      location: "Curitiba, PR",
+      type: "work",
+      description: [
+        "Implementou funcionalidades em sistema legado com Laravel e MySQL, incluindo biblioteca e avaliação SoftSkills",
+        "Integrado novo front-end React com back-end",
+        "Corrigiu bugs e otimizou o desempenho",
+        "Documentação de mudanças e boas práticas de código"
+      ]
+    },
+    {
+      id: 2,
+      company: "PowerLibs",
+      position: "Desenvolvedor Fullstack",
+      period: "Jun 2024 – Presente",
+      location: "Remoto",
+      type: "work",
+      description: [
+        "Liderou arquitetura de sistemas e seleção de tecnologias",
+        "Participou do recrutamento de novos desenvolvedores"
+      ]
+    },
+    {
+      id: 3,
+      company: "Iceberg Security",
+      position: "Desenvolvedor Fullstack",
+      period: "Jan 2024 – Out 2024",
+      location: "Curitiba, PR",
+      type: "work",
+      description: [
+        "Desenvolvimento com Laravel, React, Node.js",
+        "Integração com APIs RESTful e gestão de ambiente Docker/AWS"
+      ]
+    },
+    {
+      id: 4,
+      company: "Link Monitoramento",
+      position: "Desenvolvedor Fullstack",
+      period: "Nov 2022 – Jul 2023",
+      location: "Curitiba, PR",
+      type: "work",
+      description: [
+        "Desenvolvimento com Laravel.js, React e Node.js",
+        "Melhoria de performance backend"
+      ]
+    },
+    {
+      id: 5,
+      company: "SENAI",
+      position: "Professor de Desenvolvimento de Sistemas",
+      period: "Mai 2022 – Fev 2024",
+      location: "Curitiba, PR",
+      type: "education",
+      description: [
+        "Aulas de PHP, Laravel, React e SQL",
+        "Orientação de projetos práticos",
+        "Criação de material didático"
+      ]
+    }
   ]
 
   const projects = [
@@ -152,11 +199,13 @@ export default function Portfolio() {
             <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               GustavoViniciusDev
             </div>
-
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
               <button onClick={() => scrollToSection("sobre")} className="hover:text-blue-600 transition-colors">
                 Sobre
+              </button>
+              <button onClick={() => scrollToSection("experiencia")} className="hover:text-blue-600 transition-colors">
+                Experiência
               </button>
               <button onClick={() => scrollToSection("projetos")} className="hover:text-blue-600 transition-colors">
                 Projetos
@@ -168,12 +217,10 @@ export default function Portfolio() {
                 Contato
               </button>
             </nav>
-
             <div className="flex items-center space-x-4">
               <Button variant="ghost" size="icon" onClick={toggleDarkMode} className="rounded-full">
-                {!darkMode ?  <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                {!darkMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
               </Button>
-
               {/* Mobile Menu Button */}
               <Button
                 variant="ghost"
@@ -185,7 +232,6 @@ export default function Portfolio() {
               </Button>
             </div>
           </div>
-
           {/* Mobile Navigation */}
           {mobileMenuOpen && (
             <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
@@ -195,6 +241,12 @@ export default function Portfolio() {
                   className="text-left hover:text-blue-600 transition-colors"
                 >
                   Sobre
+                </button>
+                <button
+                  onClick={() => scrollToSection("experiencia")}
+                  className="text-left hover:text-blue-600 transition-colors"
+                >
+                  Experiência
                 </button>
                 <button
                   onClick={() => scrollToSection("projetos")}
@@ -279,7 +331,6 @@ export default function Portfolio() {
                 digitais inovadoras e eficientes.
               </p>
             </div>
-
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {skills.map((skill, index) => (
                 <Card
@@ -288,9 +339,9 @@ export default function Portfolio() {
                 >
                   <CardContent className="p-6 text-center flex flex-col items-center">
                     <Image
-                      src={skill.icon}
+                      src={skill.icon || "/placeholder.svg"}
                       alt={`${skill.name} icon`}
-                      width={40}       // ~5rem; ajuste se quiser maior/menor
+                      width={40}
                       height={40}
                       className="mb-4 object-contain group-hover:scale-110 transition-transform duration-300"
                     />
@@ -302,8 +353,78 @@ export default function Portfolio() {
           </div>
         </section>
 
+        {/* Experiência Profissional */}
+        <section id="experiencia" className="py-16 px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Experiência Profissional</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Minha trajetória profissional em desenvolvimento de software e educação
+              </p>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="space-y-6">
+                {experiences.map((experience) => (
+                  <Card
+                    key={experience.id}
+                    className="group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    <CardContent className="p-6">
+                      <div className="flex flex-col md:flex-row md:items-start gap-4">
+                        <div className="flex-shrink-0">
+                          <div className={`p-3 rounded-full ${
+                            experience.type === 'education' 
+                              ? 'bg-green-100 dark:bg-green-900' 
+                              : 'bg-blue-100 dark:bg-blue-900'
+                          }`}>
+                            {experience.type === 'education' ? (
+                              <GraduationCap className={`w-6 h-6 ${
+                                experience.type === 'education' 
+                                  ? 'text-green-600 dark:text-green-400' 
+                                  : 'text-blue-600 dark:text-blue-400'
+                              }`} />
+                            ) : (
+                              <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex-grow">
+                          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                            <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                              {experience.position}
+                            </h3>
+                            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-0">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              {experience.period}
+                            </div>
+                          </div>
+                          <div className="flex items-center text-gray-600 dark:text-gray-300 mb-3">
+                            <Building className="w-4 h-4 mr-2" />
+                            <span className="font-medium">{experience.company}</span>
+                            <span className="mx-2">•</span>
+                            <MapPin className="w-4 h-4 mr-1" />
+                            <span>{experience.location}</span>
+                          </div>
+                          <ul className="space-y-2">
+                            {experience.description.map((item, itemIndex) => (
+                              <li key={itemIndex} className="flex items-start text-gray-600 dark:text-gray-400">
+                                <span className="w-2 h-2 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Portfólio */}
-        <section id="projetos" className="py-16 px-4">
+        <section id="projetos" className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Meus Projetos</h2>
@@ -311,7 +432,6 @@ export default function Portfolio() {
                 Confira alguns dos projetos que desenvolvi recentemente
               </p>
             </div>
-
             <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
               {projects.map((project) => (
                 <Card
@@ -355,7 +475,7 @@ export default function Portfolio() {
         </section>
 
         {/* Serviços */}
-        <section id="servicos" className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
+        <section id="servicos" className="py-16 px-4">
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Meus Serviços</h2>
@@ -363,7 +483,6 @@ export default function Portfolio() {
                 Ofereço soluções completas para suas necessidades digitais
               </p>
             </div>
-
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, index) => (
                 <Card
@@ -384,7 +503,7 @@ export default function Portfolio() {
         </section>
 
         {/* Contato */}
-        <section id="contato" className="py-16 px-4">
+        <section id="contato" className="py-16 px-4 bg-gray-50 dark:bg-gray-800">
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Entre em Contato</h2>
@@ -392,7 +511,6 @@ export default function Portfolio() {
                 Vamos conversar sobre seu próximo projeto
               </p>
             </div>
-
             <div className="grid lg:grid-cols-2 gap-12">
               <div>
                 <Card>
@@ -417,7 +535,6 @@ export default function Portfolio() {
                   </CardContent>
                 </Card>
               </div>
-
               <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                   <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-full">
@@ -428,7 +545,6 @@ export default function Portfolio() {
                     <p className="text-gray-600 dark:text-gray-400">contato.gustavoln@gmail.com</p>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-4">
                   <div className="bg-green-100 dark:bg-green-900 p-3 rounded-full">
                     <Phone className="w-6 h-6 text-green-600 dark:text-green-400" />
@@ -438,7 +554,6 @@ export default function Portfolio() {
                     <p className="text-gray-600 dark:text-gray-400">(41) 99795-9684</p>
                   </div>
                 </div>
-
                 <div className="flex items-center space-x-4">
                   <div className="bg-purple-100 dark:bg-purple-900 p-3 rounded-full">
                     <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -448,7 +563,6 @@ export default function Portfolio() {
                     <p className="text-gray-600 dark:text-gray-400">Curitiba, PR</p>
                   </div>
                 </div>
-
                 <div className="pt-6">
                   <h3 className="font-semibold mb-4">Redes Sociais</h3>
                   <div className="flex space-x-4">
@@ -465,7 +579,6 @@ export default function Portfolio() {
                         <Linkedin className="w-5 h-5" />
                       </Button>
                     </a>
-
                     <a
                       href="https://github.com/GustavoViniciusDev"
                       target="_blank"
@@ -479,7 +592,6 @@ export default function Portfolio() {
                         <Github className="w-5 h-5" />
                       </Button>
                     </a>
-
                     <a
                       href="https://www.instagram.com/"
                       target="_blank"
@@ -493,7 +605,6 @@ export default function Portfolio() {
                         <Instagram className="w-5 h-5" />
                       </Button>
                     </a>
-
                   </div>
                 </div>
               </div>
