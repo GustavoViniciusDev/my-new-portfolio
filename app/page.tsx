@@ -1,7 +1,29 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
-import { Moon, Sun, Menu, X, Github, Linkedin, Instagram, Mail, Phone, MapPin, ExternalLink, Code, Palette, User, Globe, Briefcase, Calendar, Building, GraduationCap } from 'lucide-react'
+import {
+  Moon,
+  Sun,
+  Menu,
+  X,
+  Github,
+  Linkedin,
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+  ExternalLink,
+  Code,
+  Palette,
+  User,
+  Globe,
+  Briefcase,
+  Calendar,
+  Building,
+  GraduationCap,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -65,6 +87,20 @@ export default function Portfolio() {
   const experiences = [
     {
       id: 1,
+      company: "Alexandria",
+      position: "Engenheiro de Software",
+      period: "Ago 2025 – Presente",
+      location: "Curitiba, PR",
+      type: "work",
+      description: [
+        "Desenvolvimento de novas funcionalidades para plataforma de gestão",
+        "Migração de infraestrutura para arquitetura moderna",
+        "Otimização de performance e escalabilidade do sistema",
+        "Implementação de boas práticas de desenvolvimento",
+      ],
+    },
+    {
+      id: 2,
       company: "Solis Educacional",
       position: "Desenvolvedor Fullstack",
       period: "Nov 2024 – Jul 2025",
@@ -74,20 +110,8 @@ export default function Portfolio() {
         "Implementou funcionalidades em sistema legado com Laravel e MySQL, incluindo biblioteca e avaliação SoftSkills",
         "Integrado novo front-end React com back-end",
         "Corrigiu bugs e otimizou o desempenho",
-        "Documentação de mudanças e boas práticas de código"
-      ]
-    },
-    {
-      id: 2,
-      company: "PowerLibs",
-      position: "Desenvolvedor Fullstack",
-      period: "Jun 2024 – Presente",
-      location: "Remoto",
-      type: "work",
-      description: [
-        "Liderou arquitetura de sistemas e seleção de tecnologias",
-        "Participou do recrutamento de novos desenvolvedores"
-      ]
+        "Documentação de mudanças e boas práticas de código",
+      ],
     },
     {
       id: 3,
@@ -98,8 +122,8 @@ export default function Portfolio() {
       type: "work",
       description: [
         "Desenvolvimento com Laravel, React, Node.js",
-        "Integração com APIs RESTful e gestão de ambiente Docker/AWS"
-      ]
+        "Integração com APIs RESTful e gestão de ambiente Docker/AWS",
+      ],
     },
     {
       id: 4,
@@ -108,10 +132,7 @@ export default function Portfolio() {
       period: "Nov 2022 – Jul 2023",
       location: "Curitiba, PR",
       type: "work",
-      description: [
-        "Desenvolvimento com Laravel.js, React e Node.js",
-        "Melhoria de performance backend"
-      ]
+      description: ["Desenvolvimento com Laravel.js, React e Node.js", "Melhoria de performance backend"],
     },
     {
       id: 5,
@@ -123,16 +144,17 @@ export default function Portfolio() {
       description: [
         "Aulas de PHP, Laravel, React e SQL",
         "Orientação de projetos práticos",
-        "Criação de material didático"
-      ]
-    }
+        "Criação de material didático",
+      ],
+    },
   ]
 
   const projects = [
     {
       id: 1,
       title: "Dra. Mariana Lopes",
-      description: "Landing Page para psicóloga, o objetivo é apresentar um layout moderno, responsivo e elegante, transmitindo acolhimento, profissionalismo e confiança.",
+      description:
+        "Landing Page para psicóloga, o objetivo é apresentar um layout moderno, responsivo e elegante, transmitindo acolhimento, profissionalismo e confiança.",
       image: "/img/drmarianalopes.png?height=300&width=400",
       link: "https://dramarianalopes.vercel.app/",
     },
@@ -142,20 +164,6 @@ export default function Portfolio() {
       description: "Sistema ERP voltado para escolas públicas e privadas",
       image: "/img/solis.png?height=300&width=400",
       link: "https://painel.soliseducacional.com.br/",
-    },
-    {
-      id: 3,
-      title: "DMarks - Locação de Móveis",
-      description: "Site para locação de móveis",
-      image: "/img/dmarks.png?height=300&width=400",
-      link: "https://dmarkslocacoes.com.br/",
-    },
-    {
-      id: 4,
-      title: "VivaCard - Livramento",
-      description: "Website corporativo responsivo com CMS personalizado",
-      image: "/img/vivacard.png?height=300&width=400",
-      link: "https://vidacardlivramento.com.br/",
     },
   ]
 
@@ -283,7 +291,7 @@ export default function Portfolio() {
                   </span>
                 </h1>
                 <h2 className="text-xl md:text-2xl text-gray-600 dark:text-gray-300">
-                  Desenvolvedor Frontend & Backend
+                  Engenheiro de Sofware
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
                   Transformo ideias em experiências digitais incríveis. Especializado em criar soluções web modernas,
@@ -372,17 +380,21 @@ export default function Portfolio() {
                     <CardContent className="p-6">
                       <div className="flex flex-col md:flex-row md:items-start gap-4">
                         <div className="flex-shrink-0">
-                          <div className={`p-3 rounded-full ${
-                            experience.type === 'education' 
-                              ? 'bg-green-100 dark:bg-green-900' 
-                              : 'bg-blue-100 dark:bg-blue-900'
-                          }`}>
-                            {experience.type === 'education' ? (
-                              <GraduationCap className={`w-6 h-6 ${
-                                experience.type === 'education' 
-                                  ? 'text-green-600 dark:text-green-400' 
-                                  : 'text-blue-600 dark:text-blue-400'
-                              }`} />
+                          <div
+                            className={`p-3 rounded-full ${
+                              experience.type === "education"
+                                ? "bg-green-100 dark:bg-green-900"
+                                : "bg-blue-100 dark:bg-blue-900"
+                            }`}
+                          >
+                            {experience.type === "education" ? (
+                              <GraduationCap
+                                className={`w-6 h-6 ${
+                                  experience.type === "education"
+                                    ? "text-green-600 dark:text-green-400"
+                                    : "text-blue-600 dark:text-blue-400"
+                                }`}
+                              />
                             ) : (
                               <Briefcase className="w-6 h-6 text-blue-600 dark:text-blue-400" />
                             )}
@@ -517,18 +529,45 @@ export default function Portfolio() {
                   <CardContent className="p-6">
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
-                        <label className="block text-sm font-medium mb-2" htmlFor="contact-name">Nome</label>
-                        <Input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Seu nome completo" />
+                        <label className="block text-sm font-medium mb-2" htmlFor="contact-name">
+                          Nome
+                        </label>
+                        <Input
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          required
+                          placeholder="Seu nome completo"
+                        />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2" htmlFor="contact-email">E-mail</label>
-                        <Input value={email} onChange={(e) => setEmail(e.target.value)} required type="email" placeholder="seu@email.com" />
+                        <label className="block text-sm font-medium mb-2" htmlFor="contact-email">
+                          E-mail
+                        </label>
+                        <Input
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          required
+                          type="email"
+                          placeholder="seu@email.com"
+                        />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2" htmlFor="contact-msg">Mensagem</label>
-                        <Textarea value={message} onChange={(e) => setMessage(e.target.value)} required placeholder="Descreva seu projeto..." rows={5} />
+                        <label className="block text-sm font-medium mb-2" htmlFor="contact-msg">
+                          Mensagem
+                        </label>
+                        <Textarea
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          required
+                          placeholder="Descreva seu projeto..."
+                          rows={5}
+                        />
                       </div>
-                      <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
+                      <Button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                      >
                         {loading ? "Enviando..." : "Enviar Mensagem"}
                       </Button>
                     </form>
@@ -566,11 +605,7 @@ export default function Portfolio() {
                 <div className="pt-6">
                   <h3 className="font-semibold mb-4">Redes Sociais</h3>
                   <div className="flex space-x-4">
-                    <a
-                      href="https://www.linkedin.com/in/gustavoviniciusdev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href="https://www.linkedin.com/in/gustavoviniciusdev" target="_blank" rel="noopener noreferrer">
                       <Button
                         variant="outline"
                         size="icon"
@@ -579,11 +614,7 @@ export default function Portfolio() {
                         <Linkedin className="w-5 h-5" />
                       </Button>
                     </a>
-                    <a
-                      href="https://github.com/GustavoViniciusDev"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href="https://github.com/GustavoViniciusDev" target="_blank" rel="noopener noreferrer">
                       <Button
                         variant="outline"
                         size="icon"
@@ -592,11 +623,7 @@ export default function Portfolio() {
                         <Github className="w-5 h-5" />
                       </Button>
                     </a>
-                    <a
-                      href="https://www.instagram.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
+                    <a href="https://www.instagram.com/gustavoviniciusdev" target="_blank" rel="noopener noreferrer">
                       <Button
                         variant="outline"
                         size="icon"
@@ -617,7 +644,8 @@ export default function Portfolio() {
           <div className="container mx-auto text-center">
             <p className="mb-2">© 2025 Gustavo Vinicius. Todos os direitos reservados.</p>
             <p className="text-gray-400">
-              Criado com ❤️ por <span className="text-blue-400 hover:text-blue-300 cursor-pointer">Gustavo Vinicius</span>
+              Criado com ❤️ por{" "}
+              <span className="text-blue-400 hover:text-blue-300 cursor-pointer">Gustavo Vinicius</span>
             </p>
           </div>
         </footer>
