@@ -126,7 +126,7 @@ export default function Portfolio() {
         subtitle: "Engineering-focused services for digital products",
       },
       footer: {
-        rights: "© 2025 Gustavo Vinicius. All rights reserved.",
+        rights: "© 2026 Gustavo Vinicius. All rights reserved.",
         created: "Created with ❤️ by",
       },
       contact: {
@@ -177,7 +177,7 @@ export default function Portfolio() {
         subtitle: "Serviços com foco em engenharia para produtos digitais",
       },
       footer: {
-        rights: "© 2025 Gustavo Vinicius. Todos os direitos reservados.",
+        rights: "© 2026 Gustavo Vinicius. Todos os direitos reservados.",
         created: "Criado com ❤️ por",
       },
       contact: {
@@ -867,7 +867,7 @@ export default function Portfolio() {
                 </p>
               </a>
               <a
-                href="https://wa.me/5541997969684"
+                href="https://wa.me/5541997959684"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2"
@@ -877,7 +877,7 @@ export default function Portfolio() {
                   <MessageCircle className="w-6 h-6" />
                 </div>
                 <h3 className="text-lg font-semibold mb-1 text-center">{copy.contact.phone}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">(41) 99796-9684</p>
+                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">(41) 99795-9684</p>
               </a>
               <a
                 href="https://www.linkedin.com/in/gustavoviniciusdev/"
