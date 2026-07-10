@@ -25,6 +25,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { LiquidGlassCard } from "@/components/ui/liquid-glass-card"
 import Image from "next/image"
 
 export default function Portfolio() {
@@ -41,23 +42,26 @@ export default function Portfolio() {
   }, [darkMode])
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll("[data-reveal]"))
+    const elements = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"))
     if (!("IntersectionObserver" in window) || elements.length === 0) {
       elements.forEach((element) => element.classList.add("is-visible"))
       return
     }
+
+    elements.forEach((element, index) => {
+      element.style.setProperty("--reveal-delay", `${Math.min(index * 45, 220)}ms`)
+    })
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("is-visible")
-          } else {
-            entry.target.classList.remove("is-visible")
+            observer.unobserve(entry.target)
           }
         })
       },
-      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" },
+      { threshold: 0.12, rootMargin: "0px 0px -14% 0px" },
     )
 
     elements.forEach((element) => observer.observe(element))
@@ -433,25 +437,167 @@ export default function Portfolio() {
     <div className={`min-h-screen transition-colors duration-300 ${darkMode ? "dark" : ""}`}>
       <style jsx global>{`
         .glass-panel {
-          background: rgba(255, 255, 255, 0.55);
-          border: 1px solid rgba(255, 255, 255, 0.6);
-          box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-          backdrop-filter: blur(28px) saturate(160%);
+          position: relative;
+          isolation: isolate;
+          overflow: hidden;
+          background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.34) 48%, rgba(255, 255, 255, 0.18)),
+            radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.95), transparent 28%),
+            radial-gradient(circle at 82% 78%, rgba(125, 211, 252, 0.28), transparent 34%);
+          border: 1px solid rgba(255, 255, 255, 0.68);
+          box-shadow:
+            0 24px 70px rgba(15, 23, 42, 0.16),
+            0 8px 24px rgba(59, 130, 246, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.78),
+            inset 0 -18px 36px rgba(255, 255, 255, 0.18);
+          -webkit-backdrop-filter: blur(30px) saturate(180%) contrast(112%);
+          backdrop-filter: blur(30px) saturate(180%) contrast(112%);
         }
         .dark .glass-panel {
-          background: rgba(15, 23, 42, 0.5);
-          border-color: rgba(255, 255, 255, 0.12);
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          background:
+            linear-gradient(135deg, rgba(30, 41, 59, 0.68), rgba(15, 23, 42, 0.42) 48%, rgba(2, 6, 23, 0.28)),
+            radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.2), transparent 30%),
+            radial-gradient(circle at 82% 78%, rgba(56, 189, 248, 0.16), transparent 34%);
+          border-color: rgba(255, 255, 255, 0.14);
+          box-shadow:
+            0 24px 70px rgba(0, 0, 0, 0.42),
+            0 8px 24px rgba(14, 165, 233, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.14),
+            inset 0 -18px 36px rgba(255, 255, 255, 0.04);
+        }
+        .glass-panel::before,
+        .glass-panel::after {
+          content: "";
+          position: absolute;
+          pointer-events: none;
+          border-radius: inherit;
+          z-index: -1;
+        }
+        .glass-panel::before {
+          inset: 0;
+          background:
+            linear-gradient(115deg, rgba(255, 255, 255, 0.72), transparent 28% 72%, rgba(255, 255, 255, 0.2)),
+            radial-gradient(120% 90% at 0% 0%, rgba(255, 255, 255, 0.56), transparent 42%);
+          mix-blend-mode: screen;
+          opacity: 0.64;
+        }
+        .glass-panel::after {
+          inset: 1px;
+          background:
+            linear-gradient(145deg, transparent 18%, rgba(255, 255, 255, 0.28) 44%, transparent 48%),
+            repeating-linear-gradient(110deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px 7px);
+          opacity: 0.28;
+          transform: translate3d(-10%, -10%, 0) rotate(1deg);
+          filter: blur(0.2px);
+        }
+        .dark .glass-panel::before {
+          opacity: 0.24;
+        }
+        .dark .glass-panel::after {
+          opacity: 0.18;
         }
         .glass-chip {
-          background: rgba(255, 255, 255, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.6);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-          backdrop-filter: blur(22px) saturate(150%);
+          position: relative;
+          overflow: hidden;
+          background:
+            linear-gradient(135deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.35)),
+            radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.86), transparent 34%);
+          border: 1px solid rgba(255, 255, 255, 0.68);
+          box-shadow:
+            0 10px 26px rgba(15, 23, 42, 0.1),
+            inset 0 1px 0 rgba(255, 255, 255, 0.72),
+            inset 0 -10px 22px rgba(255, 255, 255, 0.16);
+          -webkit-backdrop-filter: blur(22px) saturate(170%) contrast(108%);
+          backdrop-filter: blur(22px) saturate(170%) contrast(108%);
         }
         .dark .glass-chip {
-          background: rgba(15, 23, 42, 0.5);
-          border-color: rgba(255, 255, 255, 0.12);
+          background:
+            linear-gradient(135deg, rgba(30, 41, 59, 0.66), rgba(15, 23, 42, 0.38)),
+            radial-gradient(circle at 18% 10%, rgba(255, 255, 255, 0.18), transparent 34%);
+          border-color: rgba(255, 255, 255, 0.14);
+        }
+        .liquid-hover {
+          transform: translate3d(0, 0, 0) scale(1);
+          transition:
+            transform 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+            background 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-hover:hover {
+          transform: translate3d(0, -2px, 0) scale(1.002);
+          border-color: rgba(255, 255, 255, 0.82);
+          box-shadow:
+            0 18px 42px rgba(15, 23, 42, 0.13),
+            0 8px 20px rgba(14, 165, 233, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.82),
+            inset 0 -14px 30px rgba(255, 255, 255, 0.14);
+          filter: saturate(1.03);
+        }
+        .dark .liquid-hover:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          box-shadow:
+            0 18px 42px rgba(0, 0, 0, 0.28),
+            0 8px 20px rgba(14, 165, 233, 0.07),
+            inset 0 1px 0 rgba(255, 255, 255, 0.18),
+            inset 0 -14px 30px rgba(255, 255, 255, 0.04);
+        }
+        .liquid-chip {
+          transition:
+            transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            background-color 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            color 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            border-color 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-chip:hover,
+        .group:hover .liquid-chip {
+          transform: translate3d(0, -2px, 0) scale(1.025);
+          border-color: rgba(255, 255, 255, 0.78);
+          box-shadow:
+            0 16px 34px rgba(15, 23, 42, 0.14),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .liquid-link {
+          transition:
+            color 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+            transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+            text-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .liquid-link:hover {
+          transform: translate3d(0, -1px, 0);
+          text-shadow: 0 8px 24px rgba(37, 99, 235, 0.22);
+        }
+        .liquid-image {
+          transition:
+            transform 0.95s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .group:hover .liquid-image {
+          transform: scale(1.045);
+          filter: saturate(1.08) contrast(1.03);
+        }
+        .liquid-button {
+          box-shadow: 0 14px 34px rgba(37, 99, 235, 0.2);
+          transition:
+            transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            box-shadow 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+            background-position 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+            filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+          background-size: 180% 100%;
+        }
+        .liquid-button:hover {
+          transform: translate3d(0, -3px, 0) scale(1.015);
+          background-position: 100% 50%;
+          box-shadow: 0 22px 48px rgba(37, 99, 235, 0.26), 0 8px 20px rgba(168, 85, 247, 0.16);
+          filter: saturate(1.08);
+        }
+        .liquid-button:active,
+        .liquid-hover:active,
+        .liquid-chip:active {
+          transform: translate3d(0, -1px, 0) scale(0.995);
+          transition-duration: 0.18s;
         }
         .liquid-mesh {
           background-image: radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 60%),
@@ -480,23 +626,57 @@ export default function Portfolio() {
         }
         [data-reveal] {
           opacity: 0;
-          transform: translateY(16px);
-          transition: opacity 0.8s ease, transform 0.8s ease;
+          transform: translate3d(0, 28px, 0) scale(0.985);
+          filter: blur(8px);
+          transition:
+            opacity 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+            transform 1s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+            filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
           will-change: opacity, transform;
         }
         [data-reveal].is-visible {
           opacity: 1;
-          transform: translateY(0);
+          transform: translate3d(0, 0, 0) scale(1);
+          filter: blur(0);
+        }
+        @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+          .glass-panel,
+          .glass-chip {
+            background: rgba(255, 255, 255, 0.92);
+          }
+          .dark .glass-panel,
+          .dark .glass-chip {
+            background: rgba(15, 23, 42, 0.92);
+          }
+        }
+        @media (max-width: 640px) {
+          .glass-panel {
+            -webkit-backdrop-filter: blur(22px) saturate(165%) contrast(108%);
+            backdrop-filter: blur(22px) saturate(165%) contrast(108%);
+          }
+          [data-reveal] {
+            transform: translate3d(0, 18px, 0) scale(0.99);
+            filter: blur(5px);
+          }
         }
         @media (prefers-reduced-motion: reduce) {
           [data-reveal] {
             opacity: 1;
             transform: none;
+            filter: none;
             transition: none;
           }
           .float-slow,
           .float-slower {
             animation: none;
+          }
+          .liquid-hover,
+          .liquid-chip,
+          .liquid-link,
+          .liquid-image,
+          .liquid-button {
+            transform: none;
+            transition: none;
           }
         }
       `}</style>
@@ -515,19 +695,19 @@ export default function Portfolio() {
             </div>
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection("projetos")} className="hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection("projetos")} className="liquid-link hover:text-blue-600">
                 {copy.nav.projects}
               </button>
-              <button onClick={() => scrollToSection("servicos")} className="hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection("servicos")} className="liquid-link hover:text-blue-600">
                 {copy.nav.services}
               </button>
-              <button onClick={() => scrollToSection("sobre")} className="hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection("sobre")} className="liquid-link hover:text-blue-600">
                 {copy.nav.about}
               </button>
-              <button onClick={() => scrollToSection("experiencia")} className="hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection("experiencia")} className="liquid-link hover:text-blue-600">
                 {copy.nav.experience}
               </button>
-              <button onClick={() => scrollToSection("contato")} className="hover:text-blue-600 transition-colors">
+              <button onClick={() => scrollToSection("contato")} className="liquid-link hover:text-blue-600">
                 {copy.nav.contact}
               </button>
             </nav>
@@ -565,31 +745,31 @@ export default function Portfolio() {
               <nav className="container mx-auto px-4 py-4 flex flex-col space-y-4">
                 <button
                   onClick={() => scrollToSection("projetos")}
-                  className="text-left hover:text-blue-600 transition-colors"
+                  className="liquid-link text-left hover:text-blue-600"
                 >
                   {copy.nav.projects}
                 </button>
                 <button
                   onClick={() => scrollToSection("servicos")}
-                  className="text-left hover:text-blue-600 transition-colors"
+                  className="liquid-link text-left hover:text-blue-600"
                 >
                   {copy.nav.services}
                 </button>
                 <button
                   onClick={() => scrollToSection("sobre")}
-                  className="text-left hover:text-blue-600 transition-colors"
+                  className="liquid-link text-left hover:text-blue-600"
                 >
                   {copy.nav.about}
                 </button>
                 <button
                   onClick={() => scrollToSection("experiencia")}
-                  className="text-left hover:text-blue-600 transition-colors"
+                  className="liquid-link text-left hover:text-blue-600"
                 >
                   {copy.nav.experience}
                 </button>
                 <button
                   onClick={() => scrollToSection("contato")}
-                  className="text-left hover:text-blue-600 transition-colors"
+                  className="liquid-link text-left hover:text-blue-600"
                 >
                   {copy.nav.contact}
                 </button>
@@ -625,7 +805,7 @@ export default function Portfolio() {
               <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4" data-reveal>
                 <Button
                   onClick={() => scrollToSection("projetos")}
-                  className="bg-gradient-to-r from-blue-600 via-sky-500 to-purple-600 hover:from-blue-700 hover:via-sky-600 hover:to-purple-700 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-[1.02]"
+                  className="liquid-button bg-gradient-to-r from-blue-600 via-sky-500 to-purple-600 hover:from-blue-700 hover:via-sky-600 hover:to-purple-700 text-white px-8 py-3 rounded-full"
                 >
                   {copy.hero.ctaProjects}
                 </Button>
@@ -634,7 +814,7 @@ export default function Portfolio() {
                 {skills.slice(0, 6).map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-2xl glass-chip px-4 py-2 text-sm text-slate-700 dark:text-slate-200 backdrop-blur-2xl"
+                    className="liquid-chip rounded-2xl glass-chip px-4 py-2 text-sm text-slate-700 dark:text-slate-200 backdrop-blur-2xl"
                   >
                     {skill}
                   </span>
@@ -657,7 +837,7 @@ export default function Portfolio() {
               {projects.map((project) => (
                 <Card
                   key={project.id}
-                  className="group overflow-hidden glass-panel transition-all duration-300 hover:-translate-y-2"
+                  className="group overflow-hidden glass-panel liquid-hover"
                   data-reveal
                 >
                   <div className="relative overflow-hidden">
@@ -667,7 +847,7 @@ export default function Portfolio() {
                         alt={project.title}
                         width={600}
                         height={400}
-                        className="w-full h-48 object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                        className="liquid-image w-full h-48 object-cover"
                       />
                     ) : (
                       <div className="w-full h-48 bg-gradient-to-r from-blue-600/20 to-purple-600/20 flex items-center justify-center">
@@ -692,7 +872,7 @@ export default function Portfolio() {
                             key={link.url}
                             variant="outline"
                             onClick={() => window.open(link.url, "_blank")}
-                            className="glass-chip group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300"
+                            className="glass-chip liquid-chip group-hover:bg-blue-600 group-hover:text-white"
                           >
                             <ExternalLink className="w-4 h-4 mr-2" />
                             {link.label}
@@ -722,11 +902,11 @@ export default function Portfolio() {
               {services.map((service, index) => (
                 <Card
                   key={index}
-                  className="group text-center glass-panel transition-all duration-300 hover:-translate-y-2"
+                  className="group text-center glass-panel liquid-hover"
                   data-reveal
                 >
                   <CardContent className="p-6">
-                    <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400 group-hover:scale-105 transition-transform duration-300">
+                    <div className="liquid-chip mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
                       {service.icon}
                     </div>
                     <h3 className="text-xl font-semibold mb-2">{service.title[language]}</h3>
@@ -758,7 +938,7 @@ export default function Portfolio() {
                 {skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 rounded-full text-sm glass-chip text-slate-700 dark:text-slate-200 backdrop-blur-xl"
+                    className="liquid-chip px-3 py-1 rounded-full text-sm glass-chip text-slate-700 dark:text-slate-200 backdrop-blur-xl"
                   >
                     {skill}
                   </span>
@@ -782,7 +962,7 @@ export default function Portfolio() {
                 {experiences.map((experience) => (
                   <Card
                     key={experience.id}
-                    className="group glass-panel transition-all duration-300 hover:-translate-y-1"
+                    className="group glass-panel liquid-hover"
                     data-reveal
                   >
                     <CardContent className="p-6">
@@ -853,58 +1033,59 @@ export default function Portfolio() {
               </p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <a
-                href="mailto:contato.gustavoln@gmail.com"
-                className="group glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2"
-                data-reveal
-              >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-semibold mb-1 text-center">{copy.contact.email}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">
-                  contato.gustavoln@gmail.com
-                </p>
-              </a>
-              <a
-                href="https://wa.me/5541997959684"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2"
-                data-reveal
-              >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
-                  <MessageCircle className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-semibold mb-1 text-center">{copy.contact.phone}</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">(41) 99795-9684</p>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/gustavoviniciusdev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2"
-                data-reveal
-              >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
-                  <Linkedin className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-semibold mb-1 text-center">LinkedIn</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">/gustavoviniciusdev</p>
-              </a>
-              <a
-                href="https://github.com/GustavoViniciusDev"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group glass-panel rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2"
-                data-reveal
-              >
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
-                  <Github className="w-6 h-6" />
-                </div>
-                <h3 className="text-lg font-semibold mb-1 text-center">GitHub</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 text-center">/GustavoViniciusDev</p>
-              </a>
+              <LiquidGlassCard className="group glass-panel liquid-hover rounded-2xl" data-reveal>
+                <a href="mailto:contato.gustavoln@gmail.com" className="block h-full p-6">
+                  <div className="liquid-chip mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-1 text-center">{copy.contact.email}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 text-center">
+                    contato.gustavoln@gmail.com
+                  </p>
+                </a>
+              </LiquidGlassCard>
+              <LiquidGlassCard className="group glass-panel liquid-hover rounded-2xl" data-reveal>
+                <a
+                  href="https://wa.me/5541997959684"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-6"
+                >
+                  <div className="liquid-chip mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
+                    <MessageCircle className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-1 text-center">{copy.contact.phone}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 text-center">(41) 99795-9684</p>
+                </a>
+              </LiquidGlassCard>
+              <LiquidGlassCard className="group glass-panel liquid-hover rounded-2xl" data-reveal>
+                <a
+                  href="https://www.linkedin.com/in/gustavoviniciusdev/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-6"
+                >
+                  <div className="liquid-chip mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
+                    <Linkedin className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-1 text-center">LinkedIn</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 text-center">/gustavoviniciusdev</p>
+                </a>
+              </LiquidGlassCard>
+              <LiquidGlassCard className="group glass-panel liquid-hover rounded-2xl" data-reveal>
+                <a
+                  href="https://github.com/GustavoViniciusDev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full p-6"
+                >
+                  <div className="liquid-chip mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl glass-chip text-blue-600 dark:text-blue-400">
+                    <Github className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-1 text-center">GitHub</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 text-center">/GustavoViniciusDev</p>
+                </a>
+              </LiquidGlassCard>
             </div>
           </div>
         </section>
@@ -915,7 +1096,7 @@ export default function Portfolio() {
             <p className="mb-2">{copy.footer.rights}</p>
             <p className="text-slate-500 dark:text-slate-400">
               {copy.footer.created}{" "}
-              <span className="text-blue-400 hover:text-blue-300 cursor-pointer">Gustavo Vinicius</span>
+              <span className="liquid-link inline-block text-blue-400 hover:text-blue-300 cursor-pointer">Gustavo Vinicius</span>
             </p>
           </div>
         </footer>
