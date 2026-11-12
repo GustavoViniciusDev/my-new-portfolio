@@ -102,3 +102,10 @@ html.motion-ready [data-enter="cta"]{animation:cta-arrive .48s 1.25s both cubic-
 .portfolio[data-theme="dark"] footer{border-color:#343d36}
 @media(max-width:700px){.theme-toggle{width:28px;height:28px}.portfolio[data-theme="dark"] .nav{background:#171c19;border-color:#384139}}
 @media(prefers-reduced-motion:reduce){.theme-toggle{transition:none}}
+
+/* Keep the experience section on the same responsive grid as the rest of the page. */
+.experience{padding-left:7.2%;padding-right:7.2%}
+.experience-heading{min-width:0}
+.experience-heading h2{max-width:100%;overflow-wrap:break-word}
+.experience-content,.experience-title>div{min-width:0}
+@media(max-width:700px){.experience{padding-right:7%;padding-left:7%}.experience-heading h2{font-size:clamp(38px,11vw,54px)}}
